@@ -24,11 +24,9 @@ public class StarGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
         batch.draw(background, 0, 0, 640, 1136);
-		for (int i = 0; i < 100; i++) {
-		    
-
+		for (int i = 0; i < 640; i++) {
+            batch.draw(img, i, 0);
         }
-		batch.draw(img, 0, 0);
 		batch.end();
 	}
 	
