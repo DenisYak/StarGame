@@ -20,6 +20,7 @@ public class Base2DScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         System.out.println("show");
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class Base2DScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchDown screenX=" + screenX + " screenY=" + (Gdx.graphics.getHeight() - screenY));
+        System.out.println("touchUp screenX=" + screenX + " screenY=" + (Gdx.graphics.getHeight() - screenY));
         return false;
     }
 
