@@ -16,6 +16,7 @@ public class MenuScreen extends Base2DScreen {
 
     private SpriteBatch batch;
     private Texture background;
+    private Texture ship;
 
     public MenuScreen(Game game) {
         super(game);
@@ -26,6 +27,7 @@ public class MenuScreen extends Base2DScreen {
     public void show() {
         super.show();
         batch = new SpriteBatch();
+        ship = new Texture("spaceship.png");
 //        background = new Texture("space.png");
         background = new Texture("bg.png");
 //        background = new Texture("nebula.jpg");
@@ -39,6 +41,7 @@ public class MenuScreen extends Base2DScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(background, 0, 0);
+        batch.draw(ship, 0, 0);
         batch.end();
     }
 
@@ -48,4 +51,16 @@ public class MenuScreen extends Base2DScreen {
         batch.dispose();
         background.dispose();
     }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return super.touchDown(screenX, screenY, pointer, button);
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return super.touchUp(screenX, screenY, pointer, button);
+    }
+
+
 }
