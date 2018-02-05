@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.ArrayList;
 
 import ru.geekbrains.stargame.Background;
 import ru.geekbrains.stargame.engine.ActionListener;
@@ -33,6 +37,8 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
     private ButtonPlay buttonPlay;
     private TextureAtlas atlas;
     private Star star;
+    private Array<Star> starfield;
+    private long lastDropTime;
 
     public MenuScreen(Game game) {
         super(game);
@@ -57,7 +63,12 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
         buttonExit.setHeightProportion(BUTTON_HEIGHT);
         buttonPlay = new ButtonPlay(atlas, BUTTON_PRESS_SCALE, this);
         buttonPlay.setHeightProportion(BUTTON_HEIGHT);
-        star = new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), 0.02f);
+
+//        star = new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), 0.02f);
+        starfield = new Array<Star>();
+        for (int i = 0; i < 20; i++) {
+            starfield.add(new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), 0.02f));
+        }
     }
 
     @Override
@@ -78,7 +89,10 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
     }
 
     public void update(float delta) {
-        star.update(delta);
+//        star.update(delta);
+        for(Star star: starfield) {
+            star.update(delta);
+        }
     }
 
     public void draw() {
@@ -86,7 +100,10 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
-        star.draw(batch);
+//        star.draw(batch);
+        for(Star star: starfield) {
+            star.draw(batch);
+        }
         buttonExit.draw(batch);
         buttonPlay.draw(batch);
         batch.end();
@@ -96,7 +113,10 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
     protected void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        star.resize(worldBounds);
+//        star.resize(worldBounds);
+        for(Star star: starfield) {
+            star.resize(worldBounds);
+        }
         buttonExit.resize(worldBounds);
         buttonPlay.resize(worldBounds);
     }
