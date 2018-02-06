@@ -9,13 +9,13 @@ import ru.geekbrains.stargame.engine.math.Rnd;
 
 public class Star extends Sprite{
 
-    private final Vector2 v = new Vector2();
-    private Rect worldBounds;
+    private final Vector2 v = new Vector2(); // скорость звезды
+    private Rect worldBounds; // для определения звезды относительно пересечения границ экрана
 
     public Star(TextureAtlas atlas, float vx, float vy, float height) {
         super(atlas.findRegion("star"));
-        v.set(vx, vy);
-        setHeightProportion(Rnd.nextFloat(height, height * 3));
+        v.set(vx, vy); // вектор скорости по х и у
+        setHeightProportion(Rnd.nextFloat(height, height * 3)); // пропорции звезды
     }
 
     @Override
@@ -34,9 +34,9 @@ public class Star extends Sprite{
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
-        float posX = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight());
-        float posY = Rnd.nextFloat(worldBounds.getBottom(), worldBounds.getTop());
-        pos.set(posX, posY);
+        float posX = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight()); // случайная координита появления по оси Х
+        float posY = Rnd.nextFloat(worldBounds.getBottom(), worldBounds.getTop()); // случайная координита появления по оси Y
+        pos.set(posX, posY); // установка вектора позиции
 
     }
 }
