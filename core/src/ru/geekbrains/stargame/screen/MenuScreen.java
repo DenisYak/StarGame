@@ -40,9 +40,9 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
     @Override
     public void show() {
         super.show();
-        backgroundTexture = new Texture("bg.png");
+        backgroundTexture = new Texture("textures/bg.png");
         background = new Background(new TextureRegion(backgroundTexture));
-        atlas = new TextureAtlas("menuAtlas.tpack");
+        atlas = new TextureAtlas("textures/menuAtlas.tpack");
         starfield = new Array<Star>();
         for (int i = 0; i < STAR_COUNT; i++) {
             starfield.add(new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), STAR_HEIGHT));

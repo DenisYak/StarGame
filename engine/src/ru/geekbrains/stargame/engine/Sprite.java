@@ -16,6 +16,10 @@ public class Sprite extends Rect {
 
     protected boolean isDestroyed;
 
+    public Sprite() {
+
+    }
+
     public Sprite(TextureRegion region) {
         if (region == null ) {
             throw new NullPointerException("region is null");
