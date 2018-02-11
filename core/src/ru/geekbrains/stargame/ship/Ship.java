@@ -12,12 +12,16 @@ public class Ship extends Sprite{
 
     private static final float SHIP_HEIGHT = 0.15f;
     private static final float BOTTOM_MARGIN = 0.05f;
+    private static final int INVALID_POINTER = -1;
 
     private Vector2 v0 = new Vector2(0.5f, 0.0f);
     private Vector2 v = new Vector2();
 
     private boolean pressedLeft;
     private boolean pressedRight;
+
+    private int leftPointer = INVALID_POINTER;
+    private int rightPointer = INVALID_POINTER;
 
     private Rect worldBounds;
 
@@ -48,20 +52,33 @@ public class Ship extends Sprite{
     @Override
     public void touchDown(Vector2 touch, int pointer) { // перемещение корабля по клику
         if (worldBounds.pos.x > touch.x) {
+            if (leftPointer != INVALID_POINTER) return;
+            leftPointer = pointer;
             moveLeft();
         } else {
+            if (rightPointer != INVALID_POINTER) return;
+            rightPointer = pointer;
             moveRight();
         }
     }
 
     @Override
     public void touchUp(Vector2 touch, int pointer) {
-        stop();
-    }
-
-    @Override
-    public void touchDragged(Vector2 touch, int pointer) { // перемещение корабля по драгу
-
+        if (pointer == leftPointer) {
+            leftPointer = INVALID_POINTER;
+            if (rightPointer != INVALID_POINTER) {
+                moveRight();
+            } else {
+                stop();
+            }
+        } else if (pointer == rightPointer) {
+            rightPointer = INVALID_POINTER;
+            if (leftPointer != INVALID_POINTER) {
+                moveLeft();
+            } else {
+                stop();
+            }
+        }
     }
 
     public void keyDown(int keycode) { // перемещение корабля по кнопкам
@@ -111,5 +128,9 @@ public class Ship extends Sprite{
     }
     private void stop () {
         v.setZero();
+    }
+
+    public Vector2 getV() {
+        return v;
     }
 }

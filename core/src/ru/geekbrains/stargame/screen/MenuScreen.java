@@ -31,7 +31,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
     private ButtonPlay buttonPlay;
     private TextureAtlas atlas;
     private Array<Star> starfield;
-    private Star star;
+
 
     public MenuScreen(Game game) {
         super(game);

@@ -2,7 +2,6 @@ package ru.geekbrains.stargame.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -15,7 +14,7 @@ import ru.geekbrains.stargame.engine.Base2DScreen;
 import ru.geekbrains.stargame.engine.math.Rect;
 import ru.geekbrains.stargame.engine.math.Rnd;
 import ru.geekbrains.stargame.ship.Ship;
-import ru.geekbrains.stargame.star.Star;
+import ru.geekbrains.stargame.star.TrackingStar;
 
 
 public class GameScreen extends Base2DScreen{
@@ -25,7 +24,7 @@ public class GameScreen extends Base2DScreen{
     private static final int STAR_COUNT = 56;
     private static final float STAR_HEIGHT = 0.01f;
     private TextureAtlas atlas;
-    private Array<Star> starfield;
+    private Array<TrackingStar> starfield;
     private Ship ship;
 
     public GameScreen(Game game) {
@@ -38,12 +37,11 @@ public class GameScreen extends Base2DScreen{
         backgroundTexture = new Texture("space.png");
         background = new Background(new TextureRegion(backgroundTexture));
         atlas = new TextureAtlas("mainAtlas.tpack");
-        starfield = new Array<Star>();
-        for (int i = 0; i < STAR_COUNT; i++) {
-            starfield.add(new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), STAR_HEIGHT));
-        }
         ship = new Ship(atlas);
-
+        starfield = new Array<TrackingStar>();
+        for (int i = 0; i < STAR_COUNT; i++) {
+            starfield.add(new TrackingStar(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), STAR_HEIGHT, ship.getV()));
+        }
     }
 
     @Override
@@ -58,16 +56,16 @@ public class GameScreen extends Base2DScreen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         background.draw(batch);
-        for(Star star: starfield) {
-            star.draw(batch);
+        for(TrackingStar o: starfield) {
+            o.draw(batch);
         }
         ship.draw(batch);
         batch.end();
     }
 
     public void update(float delta) {
-        for(Star star: starfield) {
-            star.update(delta);
+        for(TrackingStar o: starfield) {
+            o.update(delta);
         }
         ship.update(delta);
     }
@@ -77,8 +75,8 @@ public class GameScreen extends Base2DScreen{
         super.resize(worldBounds);
         background.resize(worldBounds);
         ship.resize(worldBounds);
-        for(Star star: starfield) {
-            star.resize(worldBounds);
+        for(TrackingStar o: starfield) {
+            o.resize(worldBounds);
         }
     }
 
@@ -97,11 +95,6 @@ public class GameScreen extends Base2DScreen{
     @Override
     protected void touchUp(Vector2 touch, int pointer) {
         ship.touchUp(touch, pointer);
-    }
-
-    @Override
-    protected void touchDragged(Vector2 touch, int pointer) { // перемещение корабля по драгу
-        ship.touchDragged(touch, pointer);
     }
 
     @Override

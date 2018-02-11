@@ -9,7 +9,7 @@ import ru.geekbrains.stargame.engine.math.Rnd;
 
 public class Star extends Sprite{
 
-    private final Vector2 v = new Vector2(); // скорость звезды
+    protected final Vector2 v = new Vector2(); // скорость звезды
     private Rect worldBounds; // для определения звезды относительно пересечения границ экрана
 
     public Star(TextureAtlas atlas, float vx, float vy, float height) {
