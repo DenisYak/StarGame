@@ -22,8 +22,9 @@ public class GameScreen extends Base2DScreen{
 
     private Background background;
     private Texture backgroundTexture;
+    private static final int STAR_COUNT = 56;
+    private static final float STAR_HEIGHT = 0.01f;
     private TextureAtlas atlas;
-    private TextureAtlas atlas2;
     private Array<Star> starfield;
     private Ship ship;
 
@@ -36,14 +37,13 @@ public class GameScreen extends Base2DScreen{
         super.show();
         backgroundTexture = new Texture("space.png");
         background = new Background(new TextureRegion(backgroundTexture));
-        atlas = new TextureAtlas("menuAtlas.tpack");
-        atlas2 = new TextureAtlas("mainAtlas.tpack");
+        atlas = new TextureAtlas("mainAtlas.tpack");
         starfield = new Array<Star>();
-        for (int i = 0; i < 40; i++) {
-            starfield.add(new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), 0.02f));
+        for (int i = 0; i < STAR_COUNT; i++) {
+            starfield.add(new Star(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), STAR_HEIGHT));
         }
-        ship = new Ship(atlas2);
-        ship.setHeightProportion(0.1f);
+        ship = new Ship(atlas);
+
     }
 
     @Override
@@ -69,6 +69,7 @@ public class GameScreen extends Base2DScreen{
         for(Star star: starfield) {
             star.update(delta);
         }
+        ship.update(delta);
     }
 
     @Override
@@ -90,28 +91,28 @@ public class GameScreen extends Base2DScreen{
 
     @Override
     protected void touchDown(Vector2 touch, int pointer) { // перемещение корабля по клику
-        super.touchDown(touch, pointer);
-        ship.pos.set(touch);
+        ship.touchDown(touch, pointer);
+    }
+
+    @Override
+    protected void touchUp(Vector2 touch, int pointer) {
+        ship.touchUp(touch, pointer);
     }
 
     @Override
     protected void touchDragged(Vector2 touch, int pointer) { // перемещение корабля по драгу
-        super.touchDragged(touch, pointer);
-        ship.pos.set(touch);
+        ship.touchDragged(touch, pointer);
     }
 
     @Override
     public boolean keyDown(int keycode) { // перемещение корабля по кнопкам
-        Vector2 incrementX = new Vector2(0.02f, 0);
-        Vector2 incrementY = new Vector2(0, 0.02f);
-        if(keycode == Input.Keys.LEFT)
-            ship.pos.set(ship.pos.cpy().sub(incrementX));
-        if(keycode == Input.Keys.RIGHT)
-            ship.pos.set(ship.pos.cpy().add(incrementX));
-        if(keycode == Input.Keys.UP)
-            ship.pos.set(ship.pos.cpy().add(incrementY));
-        if(keycode == Input.Keys.DOWN)
-            ship.pos.set(ship.pos.cpy().sub(incrementY));
-        return true;
+        ship.keyDown(keycode);
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        ship.keyUp(keycode);
+        return false;
     }
 }

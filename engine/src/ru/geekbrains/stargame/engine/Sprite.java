@@ -5,10 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.geekbrains.stargame.engine.math.Rect;
+import ru.geekbrains.stargame.engine.utils.Regions;
 
-/**
- * Created by Denis on 03.02.2018.
- */
 
 public class Sprite extends Rect {
     protected float angle;
@@ -16,12 +14,19 @@ public class Sprite extends Rect {
     protected TextureRegion[] regions;
     protected int frame;
 
+    protected boolean isDestroyed;
+
     public Sprite(TextureRegion region) {
         if (region == null ) {
             throw new NullPointerException("region is null");
         }
         regions = new TextureRegion[1];
         regions[0] = region;
+    }
+
+    public Sprite(TextureRegion region, int rows, int cols, int frame) {
+        this.regions = Regions.split(region, rows, cols, frame);
+
     }
 
     public void draw(SpriteBatch batch) {
@@ -81,5 +86,13 @@ public class Sprite extends Rect {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        isDestroyed = destroyed;
     }
 }
