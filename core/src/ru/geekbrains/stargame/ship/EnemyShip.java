@@ -9,13 +9,11 @@ import ru.geekbrains.stargame.engine.math.Rnd;
 
 public class EnemyShip extends Ship{
 
-//    private static final float SHIP_HEIGHT = 0.15f;
     private Vector2 v0 = new Vector2(0.0f, -0.1f);
 
 
     public EnemyShip(TextureRegion region, int rows, int cols, int frame) {
         super(region, rows, cols, frame);
-//        setHeightProportion(SHIP_HEIGHT);
     }
 
     @Override
@@ -26,13 +24,11 @@ public class EnemyShip extends Ship{
 //        }
     }
 
-    public void set(float height) {
+    public void set(float height,
+                    Rect worldBounds) {
         setHeightProportion(height);
-    }
+        this.worldBounds = worldBounds;
 
-    @Override
-    public void resize(Rect worldBounds) {
-        super.resize(worldBounds);
         float posX = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight()); // случайная координита появления по оси Х
         float posY = worldBounds.getTop() + this.getHeight(); // появление сверху за кадром
         pos.set(posX, posY); // установка вектора позиции

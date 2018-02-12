@@ -32,7 +32,6 @@ public class GameScreen extends Base2DScreen{
     private static final float STAR_HEIGHT = 0.01f;
     private TextureAtlas atlas;
     private MainShip mainShip;
-    private EnemyShip enemyShip;
     private Array<TrackingStar> starfield;
 
     private final BulletPool bulletPool = new BulletPool();
@@ -41,6 +40,7 @@ public class GameScreen extends Base2DScreen{
 
     private Sound soundExplosion;
     private Music music;
+
 
     protected float reloadInterval = 3f; // время перезарядки
     protected float reloadTimer; // таймер для стрельбы
@@ -62,7 +62,6 @@ public class GameScreen extends Base2DScreen{
         background = new Background(new TextureRegion(backgroundTexture));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         mainShip = new MainShip(atlas, bulletPool);
-//        enemyShip = new EnemyShip(atlas);
         starfield = new Array<TrackingStar>();
         for (int i = 0; i < STAR_COUNT; i++) {
             starfield.add(new TrackingStar(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), STAR_HEIGHT, mainShip.getV()));
@@ -94,7 +93,6 @@ public class GameScreen extends Base2DScreen{
             o.draw(batch);
         }
         mainShip.draw(batch);
-//        enemyShip.draw(batch);
         enemyShipPool.drawActiveObjects(batch);
         bulletPool.drawActiveObjects(batch);
         explosionPool.drawActiveObjects(batch);
@@ -109,7 +107,6 @@ public class GameScreen extends Base2DScreen{
         explosionPool.updateActiveObjects(delta);
         enemyShipPool.updateActiveObjects(delta);
         mainShip.update(delta);
-//        enemyShip.update(delta);
         reloadTimer += delta;
         if (reloadTimer >= reloadInterval) {
             reloadTimer = 0f;
@@ -122,7 +119,6 @@ public class GameScreen extends Base2DScreen{
         super.resize(worldBounds);
         background.resize(worldBounds);
         mainShip.resize(worldBounds);
-//        enemyShip.resize(worldBounds);
         for(TrackingStar o: starfield) {
             o.resize(worldBounds);
         }
@@ -164,10 +160,8 @@ public class GameScreen extends Base2DScreen{
         return false;
     }
 
-    protected void enemyShipArrive() {
+    protected void enemyShipArrive() { // вызов корабля из пула кораблей
         EnemyShip enemyShip = enemyShipPool.obtain();
-        enemyShip.set(0.15f);
-
-
+        enemyShip.set(0.15f, worldBounds); // установка размера корабля и передача ему границ мира
     }
 }
