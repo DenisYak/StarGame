@@ -67,7 +67,7 @@ public class GameScreen extends Base2DScreen{
             starfield.add(new TrackingStar(atlas, Rnd.nextFloat(-0.005f, 0.005f), Rnd.nextFloat(-0.5f, -0.1f), STAR_HEIGHT, mainShip.getV()));
         }
         this.explosionPool = new ExplosionPool(atlas, soundExplosion);
-        this.enemyShipPool = new EnemyShipPool(atlas);
+        this.enemyShipPool = new EnemyShipPool(atlas, bulletPool);
     }
 
     @Override
