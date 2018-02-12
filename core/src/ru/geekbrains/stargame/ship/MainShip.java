@@ -1,9 +1,9 @@
 package ru.geekbrains.stargame.ship;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-
 import ru.geekbrains.stargame.bullet.BulletPool;
 import ru.geekbrains.stargame.engine.math.Rect;
 
@@ -15,7 +15,6 @@ public class MainShip extends Ship{
     private static final int INVALID_POINTER = -1;
 
     private Vector2 v0 = new Vector2(0.5f, 0.0f);
-
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -33,6 +32,7 @@ public class MainShip extends Ship{
         this.bulletV.set(0, 0.5f);
         this.bulletDamage = 1;
         this.reloadInterval = 0.2f;
+        this.bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
     }
 
     @Override

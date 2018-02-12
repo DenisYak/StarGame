@@ -1,9 +1,9 @@
 package ru.geekbrains.stargame.bullet;
 
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-
 import ru.geekbrains.stargame.engine.Sprite;
 import ru.geekbrains.stargame.engine.math.Rect;
 
@@ -13,6 +13,7 @@ public class Bullet extends Sprite{
     private final Vector2 v = new Vector2();
     private int damage;
     private Object owner;
+    private Sound sound;
 
 
     public Bullet() {
@@ -26,7 +27,8 @@ public class Bullet extends Sprite{
             Vector2 v0,
             float height,
             Rect worldBounds,
-            int damage) {
+            int damage,
+            Sound sound) {
         this.owner = owner;
         this.regions[0] = region;
         this.pos.set(pos0);
@@ -34,6 +36,7 @@ public class Bullet extends Sprite{
         setHeightProportion(height);
         this.worldBounds = worldBounds;
         this.damage = damage;
+        this.sound = sound;
     }
 
     @Override

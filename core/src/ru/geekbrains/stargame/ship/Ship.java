@@ -1,5 +1,6 @@
 package ru.geekbrains.stargame.ship;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.stargame.bullet.Bullet;
@@ -22,6 +23,7 @@ public abstract class Ship extends Sprite{
     protected final Vector2 bulletV = new Vector2(); // скорость пули
     protected float bulletHeight; // высота пули
     protected int bulletDamage; // урон пули
+    protected Sound bulletSound; // звук пули
 
     protected float reloadInterval; // время перезарядки
     protected float reloadTimer; // таймер для стрельбы
@@ -37,6 +39,6 @@ public abstract class Ship extends Sprite{
 
     protected void shoot() {
         Bullet bullet = bulletPool.obtain();
-        bullet.set(this, bulletRegion, pos, bulletV, bulletHeight, worldBounds, bulletDamage);
+        bullet.set(this, bulletRegion, pos, bulletV, bulletHeight, worldBounds, bulletDamage, bulletSound);
     }
 }
