@@ -21,4 +21,9 @@ public class EnemyShipPool extends SpritesPool<EnemyShip> {
     protected EnemyShip newObject() {
         return new EnemyShip(enemyShipAtlas, bulletPool);
     }
+
+    @Override
+    protected void debugLog() {
+        System.out.println("EnemyShipPool change activ/free:" + activeObjects.size() + "/" + freeObjects.size());
+    }
 }

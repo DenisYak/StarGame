@@ -32,9 +32,9 @@ public class EnemyShip extends Ship{
             reloadTimer = 0f;
             shoot();
         }
-//        if (isOutside(worldBounds)) {
-//            setDestroyed(true);
-//        }
+        if (this.getTop() < worldBounds.getBottom()) {
+            setDestroyed(true);
+        }
     }
 
     public void set(float height,
