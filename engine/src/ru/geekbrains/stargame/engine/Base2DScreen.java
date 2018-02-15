@@ -20,7 +20,7 @@ public class Base2DScreen implements Screen, InputProcessor {
 
     protected Game game;
     private Rect screenBounds; //границы области рисования в пикселях
-    private Rect worldBounds; //границы области рисования в мировых координитах
+    protected Rect worldBounds; //границы области рисования в мировых координитах
     private Rect glBounds; //дефолтные границы мир - gl
 
     protected Matrix4 worldToGl;

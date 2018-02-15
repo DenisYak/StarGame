@@ -52,7 +52,7 @@ public abstract class SpritesPool <T extends Sprite> {
     }
 
     // удалить все объекты помеченные "на удаление"
-    public void freeAllDestroyedObjects() {
+    public void freeAllDestroyedActiveObjects() {
         for (int i = 0; i < activeObjects.size(); i++) {
             T sprite = activeObjects.get(i);
             if (sprite.isDestroyed()) {
@@ -79,5 +79,9 @@ public abstract class SpritesPool <T extends Sprite> {
 
     protected void debugLog() {
 
+    }
+
+    public List<T> getActiveObjects() {
+        return activeObjects;
     }
 }
