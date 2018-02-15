@@ -116,7 +116,23 @@ public class GameScreen extends Base2DScreen{
                 if (enemy.isBulletCollision(bullet)) {
                     enemy.damage(bullet.getDamage());
                     bullet.setDestroyed(true);
+                    if (!enemy.isAlive()) {
+                        enemy.boom();
+                        enemy.setDestroyed(true);
+                    } return;
                 }
+            }
+        }
+
+        // нанесение урона кораблю игрока
+        List<Bullet> bulletMainShipList = bulletPool.getActiveObjects();
+        for (Bullet bullet : bulletMainShipList) {
+            if (bullet.getOwner() == mainShip) {
+                continue;
+            }
+            if (mainShip.isBulletCollision(bullet)) {
+                mainShip.damage(bullet.getDamage());
+                bullet.setDestroyed(true);
             }
         }
     }

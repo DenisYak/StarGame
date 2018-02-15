@@ -70,6 +70,7 @@ public abstract class Ship extends Sprite{
     public void damage(int damage) {
         frame = 1;
         damageAnimateTimer = 0;
+        hp = hp - bulletDamage;
     }
 
     protected void shoot() {
@@ -86,4 +87,19 @@ public abstract class Ship extends Sprite{
         return bulletDamage;
     }
 
+    public boolean isBulletCollision(Rect bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > getTop()
+                || bullet.getTop() < pos.y
+        );
+    }
+
+    public boolean isAlive() {
+        if (hp >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
