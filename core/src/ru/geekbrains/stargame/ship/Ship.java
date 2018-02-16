@@ -70,7 +70,7 @@ public abstract class Ship extends Sprite{
     public void damage(int damage) {
         frame = 1;
         damageAnimateTimer = 0;
-        hp = hp - bulletDamage;
+        hp = hp - damage;
     }
 
     protected void shoot() {

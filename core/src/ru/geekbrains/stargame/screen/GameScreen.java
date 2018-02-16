@@ -133,6 +133,7 @@ public class GameScreen extends Base2DScreen{
             if (mainShip.isBulletCollision(bullet)) {
                 mainShip.damage(bullet.getDamage());
                 bullet.setDestroyed(true);
+
             }
         }
     }
